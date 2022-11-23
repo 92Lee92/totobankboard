@@ -28,14 +28,15 @@ public class BoardController {
 		
 		ResponseEntity<String> res = null;
 		try {
-			if(!file.isEmpty()) {
+			if(file!=null && !file.isEmpty()) {
 				String path = "C;/react/upload";
-				File dFile = new File(path+file.getOriginalFilename());
+				String filename = file.getOriginalFilename();
+				File dFile = new File(path+file.getOriginalFilename());				
 				file.transferTo(dFile);
-				boardService.writeBoard(
-						new Board(null, writer,password,subject,content,file.getOriginalFilename());
 			}
-			res = new ResponseEntity<String>("r게저성", HttpStatus.OK);
+				boardService.writeBoard(
+					new Board(null,writer,password,subject,content,file.getOriginalFilename()));			
+					res = new ResponseEntity<String>("r게저성", HttpStatus.OK);
 			}catch(Exception e) {
 				e.printStackTrace();
 				res = new RespOonseEnity<String>("게저실", HttpStatus.BAD_REQUEST);
